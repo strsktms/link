@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RADIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Načtení geometrického písma + Noto Sans Symbols 2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         body {
             background-color: #000000;
             color: #ffffff;
-            font-family: 'Space Mono', monospace;
-            font-weight: bold;
+            /* Prohlížeč zkusí nejdřív Jakarta Sans na písmena, a když narazí na symbol, vezme ho z Noto Sans Symbols */
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Symbols 2', sans-serif;
+            font-weight: 800;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21,28 +23,29 @@
             padding: 20px;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         h1 {
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: 2.8rem;
+            margin-bottom: 35px;
+            letter-spacing: -1px;
         }
         .player-container {
             width: 100%;
             max-width: 350px;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
         .links {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 1.1rem;
-            padding: 5px 10px;
-            transition: background 0.2s, color 0.2s;
+            font-size: 1.2rem;
+            padding: 6px 14px;
+            transition: background 0.15s, color 0.15s;
         }
         a:hover {
             background-color: #ffffff;
@@ -52,16 +55,17 @@
 </head>
 <body>
 
-    <h1>DJ VECTOR</h1>
+    <!-- Můžeš sem teď házet jakékoliv speciální symboly, šipky, kostičky atd. -->
+    <h1>🎛️ DJ VECTOR 🎧</h1>
 
     <div class="player-container">
         <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4zGwSKGXnfpBNHkavKnyIf?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
     <div class="links">
-        <a href="https://www.instagram.com/strasiktomas_?igsh=eXFmdTdmOHQ3djA3&utm_source=qr" target="_blank">IG</a>
-        <a href="" target="_blank">TU NIC</a>
-        <a href="mailto:tomas@strasik.cz">CONTACT</a>
+        <a href="https://www.instagram.com/strasiktomas_?igsh=eXFmdTdmOHQ3djA3&utm_source=qr" target="_blank">IG ↗</a>
+        <a href="" target="_blank">◼ TU NIC ◼</a>
+        <a href="mailto:tomas@strasik.cz">CONTACT ✉</a>
     </div>
 
 </body>
