@@ -50,19 +50,20 @@
         /* Styl pro létající DVD odkazy */
         .dvd-link {
             position: absolute;
-            color: #ffffff;
+            color: #ffffff; /* Výchozí barva před prvním nárazem */
             text-decoration: none;
             font-size: 1.5rem; /* Větší text, aby šel dobře trefit */
             padding: 10px 20px;
             white-space: nowrap;
             user-select: none;
             z-index: 5;
-            transition: background 0.15s, color 0.15s;
+            /* Změna: Přidán plynulý přechod i pro barvu textu (color) */
+            transition: background 0.15s, color 0.1s ease-in-out; 
         }
 
         .dvd-link:hover {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #ffffff !important; /* Přepíše dynamickou barvu při najetí myší */
+            color: #000000 !important;
         }
     </style>
 </head>
@@ -82,6 +83,22 @@
     <script>
         const links = document.querySelectorAll('.dvd-link');
         
+        // --- NOVÉ: Seznam klubových barev pro střídání při odrazu ---
+        const clubColors = [
+            '#ff0055', // Neonová růžová
+            '#00ffff', // Azurová
+            '#00ff00', // Neonová zelená
+            '#ffaa00', // Oranžová
+            '#aa00ff', // Fialová
+            '#eeff00', // Žlutá
+            '#ffffff'  // Bílá
+        ];
+
+        // Pomocná funkce pro získání náhodné barvy ze seznamu
+        function getRandomColor() {
+            return clubColors[Math.floor(Math.random() * clubColors.length)];
+        }
+
         // Nastavení pro každý odkaz (počáteční pozice, rychlost a směr)
         const items = Array.from(links).map((link, index) => {
             return {
@@ -89,7 +106,7 @@
                 // Rozhází odkazy na různé startovní pozice
                 x: Math.random() * (window.innerWidth - 200),
                 y: Math.random() * (window.innerHeight - 100),
-                // Rychlost pohybu v pixelech na snímek (každý odkaz poletí trochu jinak)
+                // Rychlost pohybu v pixelech na snímek
                 dx: (2 + index * 0.5) * (Math.random() < 0.5 ? 1 : -1),
                 dy: (2 + index * 0.5) * (Math.random() < 0.5 ? 1 : -1)
             };
@@ -106,22 +123,34 @@
                 item.x += item.dx;
                 item.y += item.dy;
 
+                // Příznak, zda došlo ke kolizi v tomto snímku animace
+                let collided = false;
+
                 // Odraz od levé a pravé stěny
                 if (item.x <= 0) {
                     item.x = 0;
                     item.dx = -item.dx;
+                    collided = true; // Nastala kolize
                 } else if (item.x + rect.width >= winWidth) {
                     item.x = winWidth - rect.width;
                     item.dx = -item.dx;
+                    collided = true; // Nastala kolize
                 }
 
                 // Odraz od horní a dolní stěny
                 if (item.y <= 0) {
                     item.y = 0;
                     item.dy = -item.dy;
+                    collided = true; // Nastala kolize
                 } else if (item.y + rect.height >= winHeight) {
                     item.y = winHeight - rect.height;
                     item.dy = -item.dy;
+                    collided = true; // Nastala kolize
+                }
+
+                // --- NOVÉ: Pokud nastala kolize, změníme barvu textu ---
+                if (collided) {
+                    item.element.style.color = getRandomColor();
                 }
 
                 // Aplikování nových souřadnic na prvek
